@@ -1,12 +1,10 @@
 (ns full.metrics
   (:require [full.async :refer [go-try thread-try]]
-            [full.metrics.riemann]
             [full.metrics.statsd]))
 
 (defmacro timeit
   [event & body]
-  `(->> (full.metrics.statsd/timeit ~event ~@body)
-        (full.metrics.riemann/timeit ~event)))
+  `(->> (full.metrics.statsd/timeit ~event ~@body)))
 
 (defmacro go-try-timeit
   [event & body]
@@ -32,18 +30,14 @@
 
 (defn gauge
   [k v]
-  (full.metrics.riemann/gauge k v)
   (full.metrics.statsd/gauge k v))
 
 (defn increment
   [k]
-  (full.metrics.riemann/increment k)
   (full.metrics.statsd/increment k))
 
 (defn track
-  ([k]
-   (full.metrics.riemann/track k)))
+  ([k]))
 
 (defn track*
-  ([ks]
-   (full.metrics.riemann/track* ks)))
+  ([ks]))
