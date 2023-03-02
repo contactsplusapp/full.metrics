@@ -4,7 +4,7 @@
 
 (defmacro timeit
   [event & body]
-  `(->> (full.metrics.statsd/timeit ~event ~@body)))
+  `(full.metrics.statsd/timeit ~event ~@body))
 
 (defmacro go-try-timeit
   [event & body]
